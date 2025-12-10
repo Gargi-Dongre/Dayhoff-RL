@@ -72,51 +72,26 @@ This satisfies the rubric requirement for **integration with agentic workflow sy
 
 ## **High-Level Architecture Diagram (GitHub-friendly ASCII)**
 
-┌──────────────────────────────────────────────────────────────┐
-│ RAW GENE EXPRESSION DATA │
-│ (High-dimensional patient vectors: thousands of genes) │
-└──────────────────────────────────────────────────────────────┘
-│
-▼
-┌──────────────────────────────────────────────────────────────┐
-│ PREPROCESSING LAYER │
-│ Standardization | Filtering | Dimensional Summary │
-└──────────────────────────────────────────────────────────────┘
-│
-▼
-┌──────────────────────────────────────────────────────────────┐
-│ STATE GENERATOR │
-│ PCA variance profile | Feature statistics | Embeddings │
-└──────────────────────────────────────────────────────────────┘
-│
-▼
-┌──────────────────────────┐ ┌───────────────────────────┐
-│ CLUSTERING AGENT │ │ ANOMALY DETECTION AGENT │
-│ Actions: │ │ Actions: │
-│ • PCA dims (2–5) │ │ • Contamination level │
-│ • k clusters (2–6) │ │ • Sensitivity parameter │
-└──────────────────────────┘ └───────────────────────────┘
-│ │
-└───────────────► DAYHOFF ANALYSIS ENGINE ◄───────────────┘
-PCA → k-Means → Isolation Forest
-│
-▼
-┌───────────────────────────────────┐
-│ EVALUATION MODULE │
-│ Silhouette Score │
-│ Cluster Separation │
-│ Anomaly–Malignancy Alignment │
-└───────────────────────────────────┘
-│
-▼
-┌────────────────────────────────┐
-│ REWARD SIGNAL │
-│ Silhouette + Alignment - Penalty│
-└────────────────────────────────┘
-│
-┌────────────────────────────┴───────────────────────────┐
-▼ ▼
-(Feedback to Clustering Agent) (Feedback to Anomaly Agent)
+# Dayhoff Multi-Agent Reinforcement Learning Architecture
+
+**Data Flow Overview**
+
+1. **Raw Gene Expression Data**
+2. **Preprocessing Layer**
+3. **State Generator**
+4. **Two Learning Agents**
+   - Clustering Agent (PCA dims, k clusters)
+   - Anomaly Detection Agent (contamination sensitivity)
+5. **Dayhoff Analysis Engine**
+   - PCA → k-Means → Isolation Forest
+6. **Evaluation Module**
+   - Silhouette score
+   - Cluster separation
+   - Anomaly–malignancy alignment
+7. **Reward Function**
+   - Scalar feedback returned to both agents
+
+
 
 
 ---
